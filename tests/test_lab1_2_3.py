@@ -1,5 +1,5 @@
 import unittest
-from lab1_2_3 import *
+from src.lab1_2_3 import *
 
 
 class QuickSortTest(unittest.TestCase):

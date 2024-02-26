@@ -3,7 +3,8 @@ def quick_sort(arr):
     if length <= 1:
         return arr
     else:
-        pivot = arr.pop()
+        pivot = arr[length // 2]
+        arr.remove(pivot)
 
     larger = []
     lower = []
@@ -20,11 +21,11 @@ def quick_sort(arr):
 def find_kth_largest_el(arr, k):
     if k > len(arr):
         raise ValueError("Array size must be at least k")
-    sorted_arr = quick_sort(arr)
+    sorted_arr = quick_sort(arr.copy())
     return (f"The {k} largest element in list is: {sorted_arr[k-1]}, "
-            f"the index of the element in original list is:{arr.index(sorted_arr[k-1])}")
+            f"the index of the element in the original list is:{arr.index(sorted_arr[k-1])}")
 
 
 rofl = [15, 7, 22, 9, 36, 2, 42, 18]
-print(quick_sort(rofl))
-print(find_kth_largest_el(rofl, 3 ))
+print(quick_sort(rofl.copy()))
+print(find_kth_largest_el(rofl, 7))

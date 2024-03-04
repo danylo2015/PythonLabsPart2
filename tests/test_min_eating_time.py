@@ -1,4 +1,4 @@
-from src.lab2 import *
+from src.min_eating_time import *
 import unittest
 
 

@@ -1,4 +1,5 @@
 def can_eat_all(piles, h, k):
+    sorted(piles)
     hours = 0
     for pile in piles:
         hours += (pile + k - 1) // k
@@ -6,6 +7,9 @@ def can_eat_all(piles, h, k):
 
 
 def min_eating_speed(piles, h):
+    if h < len(piles):
+        return f"The hours must be equal or greater then size of piles"
+    sorted(piles)
     low = 1
     high = max(piles)
     while low <= high:
@@ -17,4 +21,4 @@ def min_eating_speed(piles, h):
     return low
 
 
-print(min_eating_speed([10, 9, 27, 3, 17], 5))
+print(min_eating_speed([10, 9, 27, 3, 17], 6))

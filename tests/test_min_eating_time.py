@@ -19,6 +19,11 @@ class TestMinEatingSpeed(unittest.TestCase):
         h = 6
         self.assertEqual(min_eating_speed(piles, h), 23)
 
+    def test_h_lower_then_piles(self):
+        piles = [30, 11, 23, 4, 20]
+        h = 4
+        self.assertEqual(min_eating_speed(piles, h), "The hours must be equal or greater then size of piles")
+
 
 if __name__ == '__main__':
     unittest.main()

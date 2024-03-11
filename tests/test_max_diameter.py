@@ -14,3 +14,7 @@ class TestDiameter(unittest.TestCase):
         root.left.left.left.left = BinaryTree(9)
         root.left.right.right.right = BinaryTree(6)
         self.assertEqual(diameter(root), 6)
+
+    def test_example_1(self):
+        root = BinaryTree(1)
+        self.assertEqual(diameter(root), 0)

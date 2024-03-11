@@ -5,23 +5,20 @@ class BinaryTree:
         self.right = right
 
 
-def height(node):
-    if node is None:
-        return 0
-    else:
-        left_height = height(node.left)
-        right_height = height(node.right)
-        return max(left_height, right_height) + 1
+def diameter(root: BinaryTree) -> int:
+    max_diameter = 0
 
+    def depth(node):
+        nonlocal max_diameter
+        if not node:
+            return 0
 
-def diameter(tree: BinaryTree) -> int:
-    if tree is None:
-        return 0
+        left_depth = depth(node.left)
+        right_depth = depth(node.right)
 
-    left_height = height(tree.left)
-    right_height = height(tree.right)
+        max_diameter = max(max_diameter, left_depth + right_depth)
 
-    left_diameter = diameter(tree.left)
-    right_diameter = diameter(tree.right)
+        return max(left_depth, right_depth) + 1
 
-    return max(left_height + right_height, max(left_diameter, right_diameter))
+    depth(root)
+    return max_diameter

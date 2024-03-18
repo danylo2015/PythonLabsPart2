@@ -1,4 +1,4 @@
-from src.piority_queue_heap import *
+from src.heap_based_priority_queue import *
 import unittest
 
 

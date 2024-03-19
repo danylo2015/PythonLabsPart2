@@ -24,10 +24,11 @@ class PriorityQueue:
         self.heap.pop()
         if self.heap:
             self._heapify_down(0)
-        return max_priority_node.value
+        print(f"The deleted element is: {max_priority_node.value}, with priority: {max_priority_node.priority}")
+        return max_priority_node.value, max_priority_node.priority
 
     def view(self):
-        return [node.value for node in self.heap]
+        print(f"The current queue is: {[node.value for node in self.heap]}")
 
     def _heapify_up(self, index):
         parent_index = (index - 1) // 2

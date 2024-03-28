@@ -1,38 +1,63 @@
-def count_islands(grid):
-    if not grid:
+from typing import List
+
+
+def count_islands(graph: List[List[str]]) -> int:
+    if not graph:
         return 0
 
+    visited_coordinates = {}
     count = 0
-    num_rows = len(grid)
-    num_cols = len(grid[0])
+    row = len(graph)
+    col = len(graph[0])
 
-    for row in range(0, num_rows):
-        for col in range(0, num_cols):
-            if grid[row][col] == "1":
+    for i in range(row):
+        for j in range(col):
+            if graph[i][j] == '1' and (i, j) not in visited_coordinates:
+                bfs(graph, i, j, row, col, visited_coordinates)
                 count += 1
-                bfs(row, col, grid)
 
     return count
 
 
-def bfs(row, col, grid):
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-
-    queue = [(row, col)]
+def bfs(graph, i, j, row, col, visited):
+    queue = [(i, j)]
 
     while queue:
-        cur_row, cur_col = queue.pop(0)
+        next_queue = []
 
-        for dr, dc in directions:
-            new_row, new_col = cur_row + dr, cur_col + dc
+        for coord in queue:
+            if tuple(coord) not in visited:
+                visited[tuple(coord)] = 1
 
-            if is_valid(new_row, new_col, grid):
-                queue.append((new_row, new_col))
-                grid[new_row][new_col] = "0"
+                # right
+                if coord[1] + 1 < col and graph[coord[0]][coord[1] + 1] == '1':
+                    next_queue.append((coord[0], coord[1] + 1))
 
+                # left
+                if coord[1] - 1 >= 0 and graph[coord[0]][coord[1] - 1] == '1':
+                    next_queue.append((coord[0], coord[1] - 1))
 
-def is_valid(row, col, grid):
-    if row < 0 or row >= len(grid) or col < 0 or col >= len(grid[0]) or grid[row][col] != "1":
-        return False
+                # up
+                if coord[0] - 1 >= 0 and graph[coord[0] - 1][coord[1]] == '1':
+                    next_queue.append((coord[0] - 1, coord[1]))
 
-    return True
+                # down
+                if coord[0] + 1 < row and graph[coord[0] + 1][coord[1]] == '1':
+                    next_queue.append((coord[0] + 1, coord[1]))
+
+                # up-right
+                if coord[0] - 1 >= 0 and coord[1] + 1 < col and graph[coord[0] - 1][coord[1] + 1] == '1':
+                    next_queue.append((coord[0] - 1, coord[1] + 1))
+
+                # up-left
+                if coord[0] - 1 >= 0 and coord[1] - 1 >= 0 and graph[coord[0] - 1][coord[1] - 1] == '1':
+                    next_queue.append((coord[0] - 1, coord[1] - 1))
+
+                # down-right
+                if coord[0] + 1 < row and coord[1] + 1 < col and graph[coord[0] + 1][coord[1] + 1] == '1':
+                    next_queue.append((coord[0] + 1, coord[1] + 1))
+
+                # down-left
+                if coord[0] + 1 < row and coord[1] - 1 >= 0 and graph[coord[0] + 1][coord[1] - 1] == '1':
+                    next_queue.append((coord[0] + 1, coord[1] - 1))
+        queue = next_queue

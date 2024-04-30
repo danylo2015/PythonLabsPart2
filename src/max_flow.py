@@ -25,7 +25,6 @@ def max_flow(input_file):
 
     graph = defaultdict(dict[int])
 
-    #  fill graph with cities edge is pipeline
     for line in lines:
         start_city, end_city, weight = line
 
@@ -93,13 +92,10 @@ def get_path(from_dict, last_vertex, start_vertex):
     return path[::-1]
 
 
-def read_data_from_file(filename):
-
-    with open(f"E:\\PythonLabsPart2\\tests\\resources\\{filename}", "r", encoding="utf-8") as file:
+def read_data_from_file(file_name):
+    with open(f"E:\\PythonLabsPart2\\tests\\resources\\{file_name}", "r") as file:
         lines = file.readlines()
-        if lines:
-            farms = lines[0].strip().split()
-            stores = lines[1].strip().split()
-            lines = [line.strip().split() for line in lines[2:]]
-
-    return farms, stores, lines
+        start_vertexes = lines[0].strip().split()
+        destination_vertexes = lines[1].strip().split()
+        edges = [line.strip().split() for line in lines[2:]]
+    return start_vertexes, destination_vertexes, edges

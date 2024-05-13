@@ -1,30 +1,28 @@
 def read_file(filename_in):
-    dict_of_words = {}
     list_of_words = []
     try:
         with open(f"E:\\PythonLabsPart2\\tests\\resources\\{filename_in}", "r", encoding="utf-8") as wchain_in:
-            # Read the first line to get the number of words
+            # Reading the first line to get the number of words
             first_line = wchain_in.readline().strip()
 
             if not first_line:
                 # If the first line is empty (no data in the file), return empty results
-                return dict_of_words, list_of_words
+                return list_of_words
 
             num_of_word = int(first_line)
 
             for _ in range(num_of_word):
                 word = wchain_in.readline().strip()
-                dict_of_words[word] = 1
                 list_of_words.append(word)
 
     except FileNotFoundError:
-        # Handle file not found error
+        # Handling file not found error
         print(f"Error: File '{filename_in}' not found.")
-        return dict_of_words, list_of_words
+        return list_of_words
 
-        # Sort the list of words by length
+        # Sorting the list of words by length
     list_of_words.sort(key=len)
-    return dict_of_words, list_of_words
+    return list_of_words
 
 
 def check_word_for_another_word(shorter_word: str, longer_word: str):
@@ -39,20 +37,27 @@ def check_word_for_another_word(shorter_word: str, longer_word: str):
     return True
 
 
-def find_max_sequence_words(words_dict: dict[str:int], word_list: list[str]):
+def find_max_sequence_words(word_list: list[str]):
     if len(word_list) == 0:
         return 0
     else:
-        for short_word in word_list:
-            for long_word in word_list:
-                if len(long_word) >= len(short_word) + 1:
-                    if check_word_for_another_word(short_word, long_word):
-                        words_dict[long_word] = words_dict[short_word] + 1
-        print(words_dict)
-        return max(words_dict.values())
+        # Initializing a DP table with all 1s
+        dp = [1] * len(word_list)
+        # Sorting the word list by length
+        word_list.sort(key=len)
+
+        for i in range(len(word_list)):
+            for j in range(i):
+                # If the shorter word can be formed from the longer word
+                # and the sequence ending with the longer word can be extended
+                if len(word_list[i]) == len(word_list[j]) + 1 and check_word_for_another_word(word_list[j], word_list[i]):
+                    dp[i] = max(dp[i], dp[j] + 1)
+
+        # The maximum sequence of words is the maximum value in the DP table
+        return max(dp)
 
 
 def write_output_file(filename_in, filename_out):
-    dict_of_words, list_of_words = read_file(filename_in)
+    list_of_words = read_file(filename_in)
     with open(f"E:\\PythonLabsPart2\\tests\\resources\\{filename_out}", "w", encoding="utf-8") as wchain_out:
-        wchain_out.write(str(find_max_sequence_words(dict_of_words, list_of_words)))
+        wchain_out.write(str(find_max_sequence_words(list_of_words)))

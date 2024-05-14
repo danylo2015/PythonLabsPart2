@@ -1,7 +1,7 @@
 def read_file(filename_in):
     list_of_words = []
     try:
-        with open(f"E:\\PythonLabsPart2\\tests\\resources\\{filename_in}", "r", encoding="utf-8") as wchain_in:
+        with open(f"../resources/{filename_in}", "r", encoding="utf-8") as wchain_in:
             # Reading the first line to get the number of words
             first_line = wchain_in.readline().strip()
 
@@ -17,7 +17,6 @@ def read_file(filename_in):
 
     except FileNotFoundError:
         # Handling file not found error
-        print(f"Error: File '{filename_in}' not found.")
         return list_of_words
 
         # Sorting the list of words by length
@@ -59,5 +58,5 @@ def find_max_sequence_words(word_list: list[str]):
 
 def write_output_file(filename_in, filename_out):
     list_of_words = read_file(filename_in)
-    with open(f"E:\\PythonLabsPart2\\tests\\resources\\{filename_out}", "w", encoding="utf-8") as wchain_out:
+    with open(f"../resources/{filename_out}", "w", encoding="utf-8") as wchain_out:
         wchain_out.write(str(find_max_sequence_words(list_of_words)))

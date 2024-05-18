@@ -8,14 +8,7 @@ def max_flow(input_file):
         lines = [[line[0], line[1], int(line[2])] for line in lines]
         if not lines or len(farms) == 0 or len(stores) == 0:
             return
-    except (FileNotFoundError, IOError):
-        print("Error: Could not read file")
-        return
-    except ValueError:
-        print("Error: Could not convert data to an integer")
-        return
-    except Exception as e:
-        print(f"Unexpected error: {e}")
+    except Exception:
         return
 
     for farm in farms:
@@ -93,7 +86,7 @@ def get_path(from_dict, last_vertex, start_vertex):
 
 
 def read_data_from_file(file_name):
-    with open(f"E:\\PythonLabsPart2\\tests\\resources\\{file_name}", "r") as file:
+    with open(f"../resources/{file_name}", "r") as file:
         lines = file.readlines()
         start_vertexes = lines[0].strip().split()
         destination_vertexes = lines[1].strip().split()

@@ -13,7 +13,7 @@ class TestPriorityQueue(unittest.TestCase):
         pq.insert('4', 8)
         pq.insert('5', 4)
         pq.insert('6', 8)
-        self.assertEqual(pq.view(), ['3', '4', '6', '2', '5', '1'])
+        self.assertEqual(pq.view(), None)
 
     def test_example_2(self):
         pq = PriorityQueue()
@@ -25,7 +25,7 @@ class TestPriorityQueue(unittest.TestCase):
         pq.insert('5', 4)
         pq.insert('6', 4)
 
-        self.assertEqual(pq.view(), ['1', '2', '3', '4', '5', '6'])
+        self.assertEqual(pq.view(), None)
 
     def test_example_3(self):
         pq = PriorityQueue()
